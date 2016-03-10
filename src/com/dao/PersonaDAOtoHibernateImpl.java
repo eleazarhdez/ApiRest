@@ -1,4 +1,4 @@
-package com.entities;
+package com.dao;
 
 import java.util.List;
 
@@ -8,17 +8,36 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-public class PersonaDAO {
+import com.resources.Persona;
 
-	public void createPersona(String name) {
+public class PersonaDAOtoHibernateImpl implements PersonaDao{
+
+	public PersonaEntity createPersona(String name) {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernatePersistenceUnit");
 		EntityManager manager = factory.createEntityManager();
 		  
 		   EntityTransaction tx = manager.getTransaction();
 		   tx.begin();
-
+		   PersonaEntity persona = new PersonaEntity(name);
 		   try {
-		      manager.persist(new Persona(name));
+		      manager.persist(persona);
+		      tx.commit();
+		   } catch (Exception e) {
+		      e.printStackTrace();
+		      tx.rollback();
+		   }
+	   return persona;
+	}
+	
+	public void createPersona(Persona persona) {
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernatePersistenceUnit");
+		EntityManager manager = factory.createEntityManager();
+		  
+		   EntityTransaction tx = manager.getTransaction();
+		   tx.begin();
+		   PersonaEntity personaEntity =  new PersonaEntity(persona);
+		   try {
+		      manager.persist(personaEntity);
 		      tx.commit();
 		   } catch (Exception e) {
 		      e.printStackTrace();
@@ -26,25 +45,25 @@ public class PersonaDAO {
 		   }
 	}
 	
-	public List<Persona> getPersonas() {
+	
+	public List<PersonaEntity> getPersonas() {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernatePersistenceUnit");
 		EntityManager manager = factory.createEntityManager();
 
-	   List<Persona> personas = manager.createQuery("Select persona From Persona persona", Persona.class).getResultList();
-	   return personas;
+	   List<PersonaEntity> personasEntity = manager.createQuery("Select persona From PersonaEntity persona", PersonaEntity.class).getResultList();
+	   return personasEntity;
 
 	}
 	
-	public Persona getPersona(Long id) {
+	public PersonaEntity getPersona(Long id) {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernatePersistenceUnit");
 		EntityManager manager = factory.createEntityManager();
-	   System.out.println("Lista Personas :");
 	   
-	   Query query = manager.createQuery("Select persona From Persona persona where persona.id = :id");
+	   Query query = manager.createQuery("Select p From PersonaEntity p where p.id = :id");
 	   query.setParameter("id", id);
-	   Persona persona = (Persona) query.getSingleResult();
-	   System.out.println("Persona : " + persona.toString());
-	   return persona;
+	   PersonaEntity personaEntity = (PersonaEntity) query.getSingleResult();
+	   System.out.println("Persona : " + personaEntity.toString());
+	   return personaEntity;
 	}
 	
 	public void updatePersona (Long id, String nombreNuevo){
@@ -55,9 +74,9 @@ public class PersonaDAO {
 		tx.begin();
 
 		try {
-		   Persona persona = manager.find(Persona.class, id);
-		   persona.setNombre(nombreNuevo);
-		   manager.persist(persona);
+		   PersonaEntity personaEntity = manager.find(PersonaEntity.class, id);
+		   personaEntity.setNombre(nombreNuevo);
+		   manager.persist(personaEntity);
 		   tx.commit();
 		} catch (Exception e) {
 		   e.printStackTrace();
@@ -73,8 +92,8 @@ public class PersonaDAO {
 		tx.begin();
 		      
 		try {
-		   Persona persona = manager.find(Persona.class, id);
-		   manager.remove(persona);
+		   PersonaEntity personaEntity = manager.find(PersonaEntity.class, id);
+		   manager.remove(personaEntity);
 		   tx.commit();
 		} catch (Exception e){
 		   e.printStackTrace();
