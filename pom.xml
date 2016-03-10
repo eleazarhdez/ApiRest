@@ -6,6 +6,7 @@
   <version>1.0</version> 
   <packaging>war</packaging>
   <build>
+    <finalName>ApiREST</finalName>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>
@@ -19,7 +20,7 @@
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>2.6</version>
-        <configuration>
+        <configuration>	
           <warSourceDirectory>WebContent</warSourceDirectory>
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
@@ -69,9 +70,14 @@
 			<version>5.1.6</version>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>5.1.0.Final</version>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-json</artifactId>
+			<version>1.19</version>
 		</dependency> 
 	</dependencies>
 </project>
