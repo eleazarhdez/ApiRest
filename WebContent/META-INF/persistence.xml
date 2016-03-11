@@ -7,7 +7,7 @@
 		
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		
-		<class>com.entities.Persona</class>
+		<class>com.resources.Persona</class>
 		
 		<properties>
 
