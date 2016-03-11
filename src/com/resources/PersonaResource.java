@@ -3,7 +3,6 @@ package com.resources;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
-import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 
 import java.util.List;
 
@@ -12,8 +11,8 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.json.JSONException;
@@ -36,13 +35,18 @@ public class PersonaResource {
 		return Response.status(200).entity(personas).build();
 	  }
 	  
-	  @Path("{id}")
 	  @GET
-	  @Produces({ APPLICATION_JSON, APPLICATION_XML })
-	  public Response getPersona(@QueryParam("id") Long id) throws JSONException {
+	  @Path("{id}")
+	  @Produces(APPLICATION_JSON)
+	  public Response getPersona(@PathParam("id") Long id) throws JSONException {
 
 		Persona persona = personaService.getPersona(id);
-		  
+		if (persona == null){
+			String mensajeError = "La persona con el id " + id.toString() + " no fue encontrada en la base de datos. Comprueba que la persona con el id " 
+		                          + id.toString() + " verdaderamente existe";
+			Error error = new Error(404, mensajeError);
+			return Response.status(Response.Status.NOT_FOUND).entity(error).type(APPLICATION_JSON_TYPE).build();
+		}	  
 		return Response.ok(persona).type(APPLICATION_JSON_TYPE).build();
 
 	  }
@@ -65,7 +69,6 @@ public class PersonaResource {
 	  public Response createPersona(Persona personaEntrada) throws JSONException {
 
 		personaService.createPersona(personaEntrada);
-		System.out.println("Persona " + personaEntrada);
 		  
 		return Response.status(200).entity(personaEntrada).build();
 	  }

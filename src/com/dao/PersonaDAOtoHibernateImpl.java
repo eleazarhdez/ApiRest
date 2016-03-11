@@ -56,13 +56,11 @@ public class PersonaDAOtoHibernateImpl implements PersonaDao{
 	}
 	
 	public PersonaEntity getPersona(Long id) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernatePersistenceUnit");
-		EntityManager manager = factory.createEntityManager();
+	   EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernatePersistenceUnit");
+	   EntityManager manager = factory.createEntityManager();
 	   
-	   Query query = manager.createQuery("Select p From PersonaEntity p where p.id = :id");
-	   query.setParameter("id", id);
-	   PersonaEntity personaEntity = (PersonaEntity) query.getSingleResult();
-	   System.out.println("Persona : " + personaEntity.toString());
+	   PersonaEntity personaEntity = manager.find(PersonaEntity.class,id);
+
 	   return personaEntity;
 	}
 	

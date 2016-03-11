@@ -32,9 +32,11 @@ public class PersonaServiceImpl implements PersonaService {
 	  public Persona getPersona(Long id) throws JSONException {
 
 		PersonaEntity personaEntity = personaDao.getPersona(id);
-		Persona persona = new Persona(personaEntity);
-
-		return persona;
+		if (personaEntity != null){
+			Persona persona = new Persona(personaEntity);
+			return persona;
+	    }
+		return null;
 	  }
  
 
