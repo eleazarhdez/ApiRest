@@ -16,4 +16,6 @@ public interface PersonaService {
    
    public void createPersona(Persona persona) throws JSONException;
    
+   public void deletePersona (Long id) throws JSONException;
+   
 }

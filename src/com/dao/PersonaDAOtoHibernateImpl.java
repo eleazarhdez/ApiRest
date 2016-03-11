@@ -84,7 +84,7 @@ public class PersonaDAOtoHibernateImpl implements PersonaDao{
 		}
 	}
 	
-	public void deletePersona (Integer id){
+	public void deletePersona (Long id){
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernatePersistenceUnit");
 		EntityManager manager = factory.createEntityManager();
 		

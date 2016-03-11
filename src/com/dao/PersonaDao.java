@@ -16,5 +16,5 @@ public interface PersonaDao {
 	
 	public void updatePersona (Long id, String nombreNuevo);
 	
-	public void deletePersona (Integer id);
+	public void deletePersona (Long id);
 }

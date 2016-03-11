@@ -52,5 +52,11 @@ public class PersonaServiceImpl implements PersonaService {
 
 	  }
 	  
+	  public void deletePersona(Long id) throws JSONException {
+
+		personaDao.deletePersona(id);
+
+	  }
+	  
 
 }
