@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 import com.resources.Persona;
 
@@ -29,7 +28,7 @@ public class PersonaDAOtoHibernateImpl implements PersonaDao{
 	   return persona;
 	}
 	
-	public void createPersona(Persona persona) {
+	public PersonaEntity createPersona(Persona persona) throws Exception {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernatePersistenceUnit");
 		EntityManager manager = factory.createEntityManager();
 		  
@@ -39,9 +38,11 @@ public class PersonaDAOtoHibernateImpl implements PersonaDao{
 		   try {
 		      manager.persist(personaEntity);
 		      tx.commit();
+		      return personaEntity;
 		   } catch (Exception e) {
 		      e.printStackTrace();
 		      tx.rollback();
+		      return null;
 		   }
 	}
 	
@@ -64,7 +65,7 @@ public class PersonaDAOtoHibernateImpl implements PersonaDao{
 	   return personaEntity;
 	}
 	
-	public void updatePersona (Long id, String nombreNuevo){
+	public PersonaEntity updatePersona (Long id, String nombreNuevo) throws Exception{
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernatePersistenceUnit");
 		EntityManager manager = factory.createEntityManager();
 		
@@ -76,13 +77,15 @@ public class PersonaDAOtoHibernateImpl implements PersonaDao{
 		   personaEntity.setNombre(nombreNuevo);
 		   manager.persist(personaEntity);
 		   tx.commit();
+		   return personaEntity;
 		} catch (Exception e) {
 		   e.printStackTrace();
 		   tx.rollback();
-		}
+		   return null;
+		}	
 	}
 	
-	public void deletePersona (Long id){
+	public void deletePersona (Long id) throws Exception{
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernatePersistenceUnit");
 		EntityManager manager = factory.createEntityManager();
 		
