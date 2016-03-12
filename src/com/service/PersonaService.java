@@ -1,6 +1,6 @@
 package com.service;
 
-import java.util.List;
+import javax.ws.rs.core.Response;
 
 import org.json.JSONException;
 
@@ -8,14 +8,18 @@ import com.resources.Persona;
 
 public interface PersonaService {
 	
-   public List<Persona> getPersonas() throws JSONException;
+   public Response getPersonas() throws JSONException;
+   
+   public Response getPersonas(int page, int size) throws JSONException;
 	  
-   public Persona getPersona(Long id) throws JSONException;
+   public Response getPersona(Long id) throws JSONException;
 
    public Persona createPersona(String nombre) throws JSONException;
    
-   public void createPersona(Persona persona) throws JSONException;
+   public Response createPersona(Persona persona) throws JSONException;
    
-   public void deletePersona (Long id) throws JSONException;
+   public Response updatePersona(Long id, String nombre) throws JSONException;
+   
+   public Response deletePersona (Long id) throws JSONException;
    
 }
