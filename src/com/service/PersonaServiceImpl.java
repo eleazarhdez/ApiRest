@@ -83,12 +83,12 @@ public class PersonaServiceImpl implements PersonaService {
 		}
 	}
 
-	public Response updatePersona(Long id, String nombre) throws JSONException {
+	public Response updatePersona(Long id, Persona persona) throws JSONException {
 		
 		try {
-			PersonaEntity personaEntity = personaDao.updatePersona(id, nombre);
-			Persona persona = new Persona(personaEntity);
-			return Response.status(200).entity(persona).build();
+			PersonaEntity personaEntity = personaDao.updatePersona(id, persona);
+			Persona personaResultado = new Persona(personaEntity);
+			return Response.status(200).entity(personaResultado).build();
 		} catch (Exception e) {
 			String mensajeError = "La persona con el id " + id.toString() + "no se ha podido actualizar o no ha sido encontrada en base de datos";
 			Error error = new Error(404, mensajeError);

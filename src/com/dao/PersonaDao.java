@@ -14,7 +14,7 @@ public interface PersonaDao {
 	
 	public PersonaEntity getPersona(Long id); 
 	
-	public PersonaEntity updatePersona (Long id, String nombreNuevo) throws Exception;
+	public PersonaEntity updatePersona (Long id, Persona persona) throws Exception;
 	
 	public void deletePersona (Long id) throws Exception;
 }

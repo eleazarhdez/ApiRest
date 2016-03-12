@@ -68,9 +68,9 @@ public class PersonaResource {
 	@POST
 	@Consumes(APPLICATION_JSON)
 	@Produces("application/json")
-	public Response updatePersona(@QueryParam("id") Long id, @QueryParam("name") String nombre) throws JSONException {
+	public Response updatePersona(@QueryParam("id") Long id, Persona personaEntrada) throws JSONException {
 
-		Response response = personaService.updatePersona(id, nombre);
+		Response response = personaService.updatePersona(id, personaEntrada);
 
 		return response;
 	}
