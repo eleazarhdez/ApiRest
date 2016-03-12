@@ -6,7 +6,7 @@ import com.resources.Persona;
 
 public interface PersonaDao {
 	
-	public PersonaEntity createPersona(String name); 
+	public PersonaEntity createPersona(String name) throws Exception; 
 	
 	public PersonaEntity createPersona(Persona persona) throws Exception; 
 

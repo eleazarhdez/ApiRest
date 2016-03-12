@@ -71,12 +71,16 @@ public class PersonaServiceImpl implements PersonaService {
 		return Response.status(Response.Status.NOT_FOUND).entity(error).type(APPLICATION_JSON_TYPE).build();
 	}
 
-	public Persona createPersona(String nombre) throws JSONException {
-
-		PersonaEntity personaEntity = personaDao.createPersona(nombre);
-		Persona persona = new Persona(personaEntity);
-
-		return persona;
+	public Response createPersona(String nombre) throws JSONException {
+		try {
+			PersonaEntity personaEntity = personaDao.createPersona(nombre);
+			Persona persona = new Persona(personaEntity);
+			return Response.status(200).entity(persona).build();
+		} catch (Exception e){
+			String mensajeError = "No se ha podido crear la persona con el nombre " + nombre;
+			Error error = new Error(404, mensajeError);
+			return Response.status(Response.Status.NOT_FOUND).entity(error).type(APPLICATION_JSON_TYPE).build();
+		}
 	}
 
 	public Response updatePersona(Long id, String nombre) throws JSONException {
@@ -112,7 +116,7 @@ public class PersonaServiceImpl implements PersonaService {
 			Error entidadEliminacion = new Error(204, mensajeEliminacion);
 			return Response.status(Response.Status.NO_CONTENT).entity(entidadEliminacion).build();
 		} catch (Exception ex) {
-			String mensajeError = "La persona con el id " + id.toString() + "no se ha podido eliminar o no ha sido encontrada en base de datos";
+			String mensajeError = "La persona con el id " + id.toString() + " no se ha podido eliminar o no ha sido encontrada en base de datos";
 			Error error = new Error(404, mensajeError);
 			return Response.status(Response.Status.NOT_FOUND).entity(error).type(APPLICATION_JSON_TYPE).build();
 		}

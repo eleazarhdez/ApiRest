@@ -14,7 +14,7 @@ public interface PersonaService {
 	  
    public Response getPersona(Long id) throws JSONException;
 
-   public Persona createPersona(String nombre) throws JSONException;
+   public Response createPersona(String nombre) throws JSONException;
    
    public Response createPersona(Persona persona) throws JSONException;
    
