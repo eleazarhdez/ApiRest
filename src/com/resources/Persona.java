@@ -18,7 +18,9 @@ public class Persona implements Serializable{
 		private static final long serialVersionUID = 5278377755599211727L;
 
 		@XmlElement
-		private Long dni;
+		private Long id;
+		@XmlElement
+		private String dni;
 		@XmlElement
 		private String nombre;
 		@XmlElement
@@ -42,11 +44,19 @@ public class Persona implements Serializable{
 			this.nombre = nombre;
 		}
 
-		public Long getDni() {
+		public Long getId() {
+			return id;
+		}
+
+		public void setId(Long id) {
+			this.id = id;
+		}
+		
+		public String getDni() {
 			return dni;
 		}
 
-		public void setDni(Long dni) {
+		public void setDni(String dni) {
 			this.dni = dni;
 		}
 
@@ -56,6 +66,22 @@ public class Persona implements Serializable{
 
 		public void setNombre(String nombre) {
 			this.nombre = nombre;
+		}
+		
+		public String getPrimerApellido() {
+			return primerApellido;
+		}
+
+		public void setPrimerApellido(String primerApellido) {
+			this.primerApellido = primerApellido;
+		}
+		
+		public String getSegundoApellido() {
+			return segundoApellido;
+		}
+
+		public void setSegundoApellido(String segundoApellido) {
+			this.segundoApellido = segundoApellido;
 		}
 		
 }

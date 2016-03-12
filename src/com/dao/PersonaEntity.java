@@ -23,8 +23,9 @@ public class PersonaEntity implements Serializable{
 
 	@Id
 	@GeneratedValue
-	private Long dni;
+	private Long id;
 
+	private String dni;
 	
 	private String nombre;
 	
@@ -33,16 +34,34 @@ public class PersonaEntity implements Serializable{
 	private String segundoApellido;
 
 	public PersonaEntity() {}
+	
+	public PersonaEntity (Persona persona){
+		try {
+			BeanUtils.copyProperties(this, persona);
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public PersonaEntity(String nombre) {
 		this.nombre = nombre;
 	}
 
-	public Long getDni() {
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public String getDni() {
 		return dni;
 	}
 
-	public void setDni(Long dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 
@@ -54,14 +73,22 @@ public class PersonaEntity implements Serializable{
 		this.nombre = nombre;
 	}
 	
-	public PersonaEntity (Persona persona){
-		try {
-			BeanUtils.copyProperties(this, persona);
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
+	public String getPrimerApellido() {
+		return primerApellido;
 	}
+
+	public void setPrimerApellido(String primerApellido) {
+		this.primerApellido = primerApellido;
+	}
+	
+	public String getSegundoApellido() {
+		return segundoApellido;
+	}
+
+	public void setSegundoApellido(String segundoApellido) {
+		this.segundoApellido = segundoApellido;
+	}
+	
+
 
 }
