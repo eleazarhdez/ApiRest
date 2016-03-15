@@ -24,7 +24,7 @@ public class PersonaResource {
 
 	@GET
 	@Path("/all")
-	@Produces("application/json")
+	@Produces(APPLICATION_JSON)
 	public Response getPersonas() throws JSONException {
 
 		Response response = personaService.getPersonas();
@@ -33,7 +33,7 @@ public class PersonaResource {
 	}
 
 	@GET
-	@Produces("application/json")
+	@Produces(APPLICATION_JSON)
 	public Response getPersonas(@QueryParam("page") int page, @QueryParam("size") int size) throws JSONException {
 
 		Response response = personaService.getPersonas(page, size);
